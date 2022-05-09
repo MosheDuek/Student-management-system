@@ -1,0 +1,83 @@
+<div class="container">
+
+<div class="modal" id="modal_mosh">
+    <div class="inner-modal">
+    <div class="modal-header">
+        <h5 class="modal-title">הסרת תלמיד</h5>
+    </div>
+    <div class="modal-body">אתה בטוח שאתה רוצה למחוק</div>
+    <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancel">ביטול</button>
+        <a href="" class="btn btn primary" id="del">מחק</a>
+    </div>
+    </div>
+</div>
+
+
+    <h3 class="display-5">all Students</h3>
+
+    <a href="http://localhost:3000/add" class="btn btn-light mb-5 ">הוסף תלמיד</a>
+<input class="form-control me-2 width-mosh" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+
+    <table class="table table-striped" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">שם פרטי</th>
+                <th scope="col">שם משפחה</th>
+                <th scope="col">כתובת מייל</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each db}}
+            <tr>
+                <td>{{this.first_name}}</td>
+                <td>{{this.last_name}}</td>
+                <td>{{this.email}}</td>
+                <td><a class="btn btn-link" href="http://localhost:3000/update/{{this.id}}">עדכון פרטים</a> | <button class="btn btn-link" onclick="modalConfirm_mosh({{this.id}})">מחק</button> | <a class="btn btn-link" href="http://localhost:3000/student/{{this.id}}">ציונים</a>
+                 </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+<button class="btn btn-outline-primary mt-4" onclick="window.print()">הדפס &#x1F5B6;</button>
+</div>
+
+<script>
+const modal_mosh = document.getElementById('modal_mosh')
+
+function modalConfirm_mosh(id){
+    modal_mosh.style.display = 'flex';
+let del = document.getElementById('del')
+let cancel = document.getElementById('cancel')
+del.href = `http://localhost:3000/delete/${id}`
+cancel.addEventListener('click',()=>{
+    modal_mosh.style.display = 'none';
+})
+}
+
+
+function myFunction() {
+  // Declare variables
+  let input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
+{{!-- <button type="button" id="btn_mosh" class="btn btn-link">Link</button> --}}

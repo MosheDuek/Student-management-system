@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 class="display-3">כל הציונים של התלמידים</h1>
+    
+     <table class="table table-striped" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">שם פרטי</th>
+                <th scope="col">מקצוע</th>
+                <th scope="col">ציון</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each db}}
+            <tr>
+                <td>{{this.full_name}}</td>
+                <td>{{this.subject}}</td>
+                <td>{{this.score}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <button class="btn btn-outline-primary mt-4" onclick="window.print()">הדפס &#x1F5B6;</button>
+</div>

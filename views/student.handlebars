@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 class="display-3">{{name}}</h1>
+    <a href="http://localhost:3000/student/add-score/{{id}}" class="btn btn-outline-success">הוסף ציון</a>
+    <a class="btn btn-info" href="http://localhost:3000/student/avg/{{id}}">ממוצע ציונים</a>
+     <table class="table table-striped" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">מקצוע</th>
+                <th scope="col">ציון</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each db}}
+            <tr>
+                <td>{{this.subject}}</td>
+                <td class="mosh-score">{{this.score}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    <button class="btn btn-outline-primary mt-4" onclick="window.print()">הדפס &#x1F5B6;</button>
+</div>
+
