@@ -1,0 +1,49 @@
+<div class="container">
+    <h1 class="display-4">grades average</h1>
+
+    <form action="">
+        <select id="selectSub" name="subject" class="form-select mb-3">
+            {{#each db}}
+            <option value="{{this.id}}">{{this.subject_name}}</option>
+            {{/each}}
+        </select>
+
+        <input type="submit" value="תן לי">
+    </form>
+</div>
+
+<div class="err-alert" id="err-alert">
+<div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+  <div class="card-header">ממוצע</div>
+  <div class="card-body" id="body-card">
+    
+  </div>
+</div>
+</div>
+
+<script>
+    document.addEventListener('submit', async (e)=>{
+        e.preventDefault()
+        const select = document.getElementById('selectSub');
+        const value = select.value
+        try{
+            let data = await fetch(`http://localhost:3000/subject/avg/${value}`).then((res)=>res.json());
+
+            let avg = data[0].avg;
+            let avgFix = Number(avg);
+            let avgg = avgFix.toFixed(1)
+            let subject = data[0].subject_name;
+            document.getElementById('body-card').innerHTML = `
+            <h5 class="card-title">ממוצע ציונים של ${subject}</h5>
+    <p class="card-text display-5">${avgg}</p>
+            `;
+            document.getElementById('err-alert').style.display = 'flex'
+        } catch (err) {
+            console.log('error',err);
+        }
+       
+        
+    })
+
+   
+</script>

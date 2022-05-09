@@ -1,6 +1,6 @@
 const express = require("express");
 const fs = require('fs')
-const { getAllStudents, addStud, deleteStudent, updateStudent, getStudent, getStudentsScores, getSubject, insertScores, avgS, getStudentDeatails } = require("../models/studentdb");
+const { getAllStudents, addStud, deleteStudent, updateStudent, getStudent, getStudentsScores, getSubject, insertScores, avgS, getStudentDeatails, avgSubject } = require("../models/studentdb");
 
 const mainRouter = express.Router();
 
@@ -88,9 +88,26 @@ mainRouter.get('/student/avg/:id',(req,res)=>{
     avgS(id)
     .then((db)=>{
         let name = db[0].full_name;
-        let avg = db[0].avg;  
+        let avgg = db[0].avg;
+        let avgNum = Number(avgg)
+        let avg = avgNum.toFixed(1)  
         res.render('avgS',{name,avg,id})})
     .catch(()=>res.redirect(`/student/${id}`))
+})
+
+mainRouter.get('/subject/avg/:id',(req,res)=>{
+    let id = req.params.id
+    avgSubject(id)
+    .then(db=>res.json(db))
+    .catch(err=>res.status(400).json(err))
+})
+
+mainRouter.get('/subject/avg',(req,res)=>{
+ getSubject().then(db => {
+     res.render('avgScore', { db })
+ }).catch(err => {
+     res.send(err)
+ })
 })
 
 mainRouter.get('/style.css',(req,res)=>{
