@@ -16,7 +16,7 @@
 
     <h3 class="display-5">all Students</h3>
 
-    <a href="http://localhost:3000/add" class="btn btn-light mb-5 ">הוסף תלמיד</a>
+    <a href="/add" class="btn btn-light mb-5 ">הוסף תלמיד</a>
 <input class="form-control me-2 width-mosh" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
 
     <table class="table table-striped" id="myTable">
@@ -34,7 +34,7 @@
                 <td>{{this.first_name}}</td>
                 <td>{{this.last_name}}</td>
                 <td>{{this.email}}</td>
-                <td><a class="btn btn-link" href="http://localhost:3000/update/{{this.id}}">עדכון פרטים</a> | <button class="btn btn-link" onclick="modalConfirm_mosh({{this.id}})">מחק</button> | <a class="btn btn-link" href="http://localhost:3000/student/{{this.id}}">ציונים</a>
+                <td><a class="btn btn-link" href="/update/{{this.id}}">עדכון פרטים</a> | <button class="btn btn-link" onclick="modalConfirm_mosh({{this.id}})">מחק</button> | <a class="btn btn-link" href="/student/{{this.id}}">ציונים</a>
                  </td>
             </tr>
             {{/each}}
@@ -51,7 +51,7 @@ function modalConfirm_mosh(id){
     modal_mosh.style.display = 'flex';
 let del = document.getElementById('del')
 let cancel = document.getElementById('cancel')
-del.href = `http://localhost:3000/delete/${id}`
+del.href = `/delete/${id}`
 cancel.addEventListener('click',()=>{
     modal_mosh.style.display = 'none';
 })
